@@ -1,12 +1,10 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import ProductPage from "../products/pages/product/IndexPage";
 import LoadingPage from "../products/pages/LoadingPage";
-import ProductListPage from "../products/pages/product/ListPage";
 
 const Loading = <LoadingPage></LoadingPage>
-const Product_Index = lazy(() => ProductPage)
-const Product_List = lazy(() => ProductListPage)
+const Product_Index = lazy(() => import("../products/pages/product/IndexPage"))
+const Product_List = lazy(() => import("../products/pages/product/ListPage"))
 
 const router = createBrowserRouter([
     {

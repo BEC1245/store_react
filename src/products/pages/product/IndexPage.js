@@ -6,7 +6,6 @@ const ProductPage = () => {
 
     return ( 
         <BasicLayout>
-            <div className="text-3xl">ProductPage</div>
             <div>
                 <Outlet></Outlet>
             </div>
