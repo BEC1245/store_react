@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 
 const nullCheck = (obj) => {
 
@@ -16,8 +16,18 @@ const nullCheck = (obj) => {
     return result
 }
 
+const searchInit = {
+    page: 1,
+    size: 10,
+    limit: 30,
+    keyword: '',
+    searchType: '',
+    orderBy: ''
+}
+
 const useQueryObj = () => {
 
+    // queryObj Part
     const [search, setSearch] = useSearchParams();
 
     const page = search.get('page') || 1
@@ -29,7 +39,21 @@ const useQueryObj = () => {
 
     const queryObj = nullCheck({page, size, limit, keyword, searchType, orderBy})
 
-    return {queryObj, setSearch}
+    const navigate = useNavigate();
+
+    const moveList = () => {
+        const searchParams = createSearchParams(queryObj).toString();
+
+        navigate(`../list?${searchParams}`)
+    }
+
+    const moveRead = (id) => {
+        const searchParams = createSearchParams(queryObj).toString();
+
+        navigate(`../read/${id}?${searchParams}`)
+    }
+
+    return {queryObj, setSearch, moveList, moveRead}
     
 }
 

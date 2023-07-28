@@ -9,3 +9,10 @@ export const getListProduct = async(queryObj) => {
 
     return data
 }
+
+export const getOneProduct = async(id) => {
+
+    const {data} = await axios.get(`http://localhost:8080/product/${id}`)
+
+    return data
+}
