@@ -14,7 +14,7 @@ const ReadPage = () => {
             <div className="text-3xl">readPage {id}</div>
             <div>
                 <ReadComponent id={id}></ReadComponent>
-                <ReviewComponent></ReviewComponent>
+                <ReviewComponent id={id}></ReviewComponent>
             </div>
         </div>
     );

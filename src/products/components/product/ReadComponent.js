@@ -11,7 +11,9 @@ const initState = {
     img: '',
     delflag: false,
     regDate: '',
-    modDate: ''
+    modDate: '',
+    avg: 0,
+    count: 0
 }
 
 const ReadComponent = ({id}) => {
@@ -40,6 +42,11 @@ const ReadComponent = ({id}) => {
                     <div className="mt-10 h-auto text-4xl">{product.sname}</div>
                 </div>
             </div>
+            { product.avg && product.count ? 
+            <div className="bg-cyan-300">
+                <div className="text-3xl"> {product.avg} </div>
+                <div className="text-3xl"> {product.count} </div>
+            </div> : <></>}
         </div>
     );
 }
