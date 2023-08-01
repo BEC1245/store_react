@@ -16,7 +16,7 @@ const initState = {
     count: 0
 }
 
-const ReadComponent = ({id}) => {
+const ReadComponent = ({id, hasChanged}) => {
 
     const [product, setProduct] = useState(initState)
 
@@ -25,7 +25,7 @@ const ReadComponent = ({id}) => {
             console.log(data);
             setProduct({...data})
         })
-    }, [id])
+    }, [id, hasChanged])
 
     return ( 
         <div>
