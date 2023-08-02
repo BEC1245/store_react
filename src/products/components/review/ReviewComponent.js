@@ -3,7 +3,8 @@ import { getReviewImg, getReviewList } from "../../api/ReviewAPI";
 import ReactStars from "react-rating-stars-component";
 import useModal from "../../hooks/useModal";
 import LayoutModal from "./modal/layoutModal";
-import ImgModal from "./modal/ImgModal";
+import ReadModal from "./modal/ReadModal";
+import ModifyModal from "./modal/ModifyModal";
 
 const initState = {
     list: [],
@@ -16,6 +17,8 @@ const ReviewComponent = ({id, hasChanged}) => {
     let [page, setPage] = useState(1);
 
     const [reviewId, setReviewId] = useState(null);
+
+    const [isReading, setIsReading] = useState(true);
 
     const [Review, setReview] = useState(initState);
 
@@ -30,6 +33,7 @@ const ReviewComponent = ({id, hasChanged}) => {
             setPage(1)
             setReview({isEnd:change, ...data})
         })
+
     }, [id, hasChanged])
 
     // 다음 버튼 로직
@@ -54,19 +58,29 @@ const ReviewComponent = ({id, hasChanged}) => {
 
     }
 
-    const handleImgClick = (id) => {
+    // 리뷰 클릭
+    const handleReviewClick = (id) => {
         setReviewId(id)
         modalOpen();
+    }
+
+    const handleModalChange = () => {
+        setIsReading(!isReading)
     }
 
     return ( 
         <div>
             { isOpen && 
             <LayoutModal modalClose={modalClose}>
-                <ImgModal id={reviewId}></ImgModal>
+                { isReading ? <ReadModal id={reviewId} hasModalChange={handleModalChange} hasChange={hasChanged} modalClose={modalClose}/> 
+                            : <ModifyModal id={reviewId} hasModalChange={handleModalChange}/>}
             </LayoutModal> }
             {Review.list.map((ele, idx) => 
-            <div key={idx} className="flex h-auto">
+            <div 
+            key={idx} 
+            className="flex h-auto"
+            onClick={() => handleReviewClick(ele.id)}
+            >
                 <div className="p-2 w-2/3"
                 >
                     <div className="mb-3 bg-red-400"> 
@@ -82,7 +96,7 @@ const ReviewComponent = ({id, hasChanged}) => {
                         </div>
                     </div>
                 </div>
-                <div className="p-2 w-1/3 h-full" onClick={() => handleImgClick(ele.id)}>
+                <div className="p-2 w-1/3 h-full">
                     <div className="bg-green-500 p-2">
                        { ele.mainImg ? 
                        <img src={`http://localhost/review_img/s_${ele.mainImg}`}></img> : 

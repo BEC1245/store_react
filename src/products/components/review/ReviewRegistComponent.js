@@ -29,6 +29,7 @@ const ReviewRegistComponent = ({id, hasChanged}) => {
         const files = ref.current.files;
         
         if(insert.score === 0 || insert.content === ''){
+            console.log(insert.score + " / " + insert.content);
             alert('내용이 없습니다')
             return
         }
@@ -49,7 +50,7 @@ const ReviewRegistComponent = ({id, hasChanged}) => {
         formData.append("score", insert.score)
         formData.append("content", insert.content)
         formData.append("product_id", id)
-        formData.append("users_email", 'user009@notgmail.com') // 여기가 쿠키의 유저 정보
+        formData.append("email", 'user009@notgmail.com') // 여기가 쿠키의 유저 정보
 
         postReview(formData).then(data => {
             console.log(data);
@@ -65,13 +66,14 @@ const ReviewRegistComponent = ({id, hasChanged}) => {
                     <ReactStars
                     count={5}
                     size={30}
+                    value={insert.score}
                     onChange={(rating) => {
                         insert['score'] = rating; 
                         setInsert({...insert})
                     }}
                     />
                 </div>
-                <div className="">
+                <div>
                     <textarea 
                     className="h-1/3" 
                     value={insert.content}
@@ -89,7 +91,7 @@ const ReviewRegistComponent = ({id, hasChanged}) => {
                     ></textarea>
                 </div>
                 <div className="">
-                    <input type="file" accept="image/*" ref={ref} multiple ></input>
+                    <input type="file" accept="image/*" ref={ref} multiple></input>
                 </div>
                 <div className="mt-2">
                     <div className="w-28 h-8 border-2 rounded-lg text-center bg-teal-300" onClick={hendleRegist}> 등록 </div>

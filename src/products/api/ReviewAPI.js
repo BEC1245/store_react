@@ -7,7 +7,7 @@ export const getReviewList = async(cursor, product_id) => {
     return data;
 }
 
-export const getReviewImg = async(review_id) => {
+export const getReview = async(review_id) => {
 
     const {data} = await axios.get(`http://localhost:8080/review/img/${review_id}`)
 
@@ -26,4 +26,24 @@ export const postReview = async(formData) => {
 
     return data
 }
+
+export const deleteReview = async(review_id) => {
+    
+    await axios.delete(`http://localhost:8080/review/${review_id}`)
+
+}
+
+export const putReview = async(formData) => {
+    
+    const header = {
+        headers: {
+            "Content-Type" : "multipart/form-data"
+        } 
+    }
+    
+    await axios.post('http://localhost:8080/review/test', formData, header)
+}
+
+
+
 
