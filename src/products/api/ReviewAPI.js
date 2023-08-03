@@ -41,7 +41,7 @@ export const putReview = async(formData) => {
         } 
     }
     
-    await axios.post('http://localhost:8080/review/test', formData, header)
+    await axios.put('http://localhost:8080/review/', formData, header)
 }
 
 

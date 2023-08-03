@@ -45,7 +45,6 @@ const ProductListComponent = ({queryObj, movePage, moveRead}) => {
                             <div className="h-2/6">
                                 <div className="w-full h-6 pl-2">{ele.pname}</div>
                                 <div className="w-full h-8 pl-2 pt-1 font-bold text-red-700">{ele.price}원 {ele.state ? `- ${ele.state}` : ''}</div>
-                                <div className="w-full h-10 text-center font-bold text-gray-500">{ele.avgScore} / {ele.reviewCount} </div>
                             </div>
                         </div>
                     )}

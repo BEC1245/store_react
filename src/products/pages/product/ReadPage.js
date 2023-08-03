@@ -3,19 +3,15 @@ import ReadComponent from "../../components/product/ReadComponent";
 import ReviewComponent from "../../components/review/ReviewComponent";
 import ReviewRegistComponent from "../../components/review/ReviewRegistComponent";
 import { useState } from "react";
-import useModal from "../../hooks/useModal";
-import LayoutModal from "../../components/review/modal/layoutModal";
-
+import useQueryObj from "../../hooks/useQueryObj";
 
 const ReadPage = () => {
 
-    console.log('changed read page')
+    const {moveList, moveModify} = useQueryObj();
 
     let [change, setChange] = useState(false)
 
     const { id } = useParams()
-
-    const {isOpen, modalOpen, modalClose} = useModal()
 
     const hasChanged = () => {
         change = !change;
@@ -24,7 +20,7 @@ const ReadPage = () => {
 
     return ( 
         <div>
-            <div className="text-3xl">readPage {id}</div>
+            <div className="text-3xl" onClick={() => { moveModify(id) } }>readPage {id}</div>
             <div>
                 <ReadComponent id={id} hasChanged={hasChanged}></ReadComponent>
                 <ReviewRegistComponent id={id} hasChanged={hasChanged}></ReviewRegistComponent>

@@ -14,13 +14,14 @@ const initState = {
     nickName:''
 }
 
-const ModifyModal = ({id, hasModalChange}) => {
+const ModifyModal = ({id, hasModalChange, hasChanged}) => {
 
-    // 이미지의 배열을 받는 넘
+    // 수정 데이터를 받는 상태
     const [review, setReview] = useState(initState)
 
     const ref = useRef()
 
+    // 비동기 통신으로 데이터를 가져옴
     useEffect(() => {
 
         if(id === null){ return }
@@ -32,11 +33,13 @@ const ModifyModal = ({id, hasModalChange}) => {
 
     }, [id])
 
+    // 이미지 삭제 버튼
     const handleImgDelete = (ele) => {
         review.imgs = review.imgs.filter(names => names !== ele)
         setReview({...review})
     }
 
+    // 이미지 수정 버튼
     const handleModify = () => {
         
         const formData = new FormData();
@@ -70,6 +73,7 @@ const ModifyModal = ({id, hasModalChange}) => {
         formData.append("imgs", review.imgs)
 
         putReview(formData).then(() => {
+            hasChanged()
             hasModalChange()
         })
     }

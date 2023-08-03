@@ -73,7 +73,7 @@ const ReviewComponent = ({id, hasChanged}) => {
             { isOpen && 
             <LayoutModal modalClose={modalClose}>
                 { isReading ? <ReadModal id={reviewId} hasModalChange={handleModalChange} hasChange={hasChanged} modalClose={modalClose}/> 
-                            : <ModifyModal id={reviewId} hasModalChange={handleModalChange}/>}
+                            : <ModifyModal id={reviewId} hasModalChange={handleModalChange} hasChanged={hasChanged}/>}
             </LayoutModal> }
             {Review.list.map((ele, idx) => 
             <div 

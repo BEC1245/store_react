@@ -82,7 +82,7 @@ const ReviewRegistComponent = ({id, hasChanged}) => {
 
                         if(info.length > 1000){
                             alert('글자는 1000자가 넘어갈 수 없습니다.')
-                            info = info.substring(0, 1000)
+                            info = info.substring(0, 998)
                         }
 
                         insert['content'] = info;
