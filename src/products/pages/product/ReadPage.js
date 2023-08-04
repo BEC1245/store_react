@@ -7,7 +7,7 @@ import useQueryObj from "../../hooks/useQueryObj";
 
 const ReadPage = () => {
 
-    const {moveList, moveModify} = useQueryObj();
+    const { moveModify } = useQueryObj();
 
     let [change, setChange] = useState(false)
 
@@ -20,11 +20,13 @@ const ReadPage = () => {
 
     return ( 
         <div>
-            <div className="text-3xl" onClick={() => { moveModify(id) } }>readPage {id}</div>
             <div>
                 <ReadComponent id={id} hasChanged={hasChanged}></ReadComponent>
                 <ReviewRegistComponent id={id} hasChanged={hasChanged}></ReviewRegistComponent>
                 <ReviewComponent id={id} hasChanged={hasChanged}></ReviewComponent>
+            </div>
+            <div className="flex justify-end">
+                <div className="h-10 w-20 p-2 rounded-lg bg-purple-500 text-white" onClick={ () => moveModify(id) }> 수정하기 </div>
             </div>
         </div>
     );

@@ -16,7 +16,7 @@ const initState = {
     count: 0
 }
 
-const ModifyComponent = ({id}) => {
+const ModifyComponent = ({id, moveRead, moveList}) => {
 
     const [product, setProduct] = useState(initState)
 
@@ -37,10 +37,12 @@ const ModifyComponent = ({id}) => {
         setProduct({...product}) 
     }
 
+    // 삭제 버튼 클릭시
     const handleDelete = () => {
 
-        deleteProduct(id).then(() => {
-            console.log('product delete')
+        deleteProduct(id).then((data) => {
+            alert(`${data} 상품이 삭제되였습니다`)
+            moveList()
         })
 
     }
@@ -58,16 +60,15 @@ const ModifyComponent = ({id}) => {
             return
         }
 
-
         if(files !== null && files.length > 0){
             const fileName = files[0].name.substring(files[0].name.lastIndexOf('.') + 1);
             
             if(fileName === 'png' || fileName === 'jpg'){
                 formData.append("file", files[0]);
+            } else {
+                alert('이미지 형식은 png, jpg 만 등록 가능합니다')
             }
-        } else {
-            alert('이미지 형식은 png, jpg 만 등록 가능합니다');
-            return
+
         }
 
 
@@ -79,7 +80,8 @@ const ModifyComponent = ({id}) => {
         formData.append("sname", product.sname)
 
         modifyProduct(formData).then(data => {
-            console.log('product modifyed')
+            alert(`${data} 상품이 변경되였습니다`)
+            moveRead(id)
         })
 
     }
@@ -98,22 +100,22 @@ const ModifyComponent = ({id}) => {
                         <input type="number" name="price" value={product.price} onChange={handleOnChange} className=" w-full"></input>
                     </div>
                     <div className="p-2 bg-slate-300 rounded-md mb-2">
-                        <select name="state" onChange={handleOnChange} defaultValue={product.state}>
+                        <select name="state" onChange={handleOnChange} value={product.state}>
                             <option>1+1</option>
                             <option>2+1</option>
                             <option>NONE</option>
                         </select>
-                        <select className="ml-2" name="sname" onChange={handleOnChange} defaultValue={product.sname}>
+                        <select className="ml-2" name="sname" onChange={handleOnChange} value={product.sname}>
                             <option>CU</option>
                             <option>GS25</option>
                             <option>SEVEN-ELEVEN</option>
                         </select>
                     </div>
                     <div  className="p-2 bg-slate-300 rounded-md mb-2 mt-2">
-                        <input type="file" ref={ref}/>
+                        <input type="file" accept="image/*" ref={ref}/>
                     </div>
                     <div className="mt-3 p-2 bg-slate-600 rounded-md w-2/5">
-                        <button className="h-10 w-20 rounded-md mx-2 bg-blue-500">돌아가기</button>
+                        <button className="h-10 w-20 rounded-md mx-2 bg-blue-500" onClick={() => moveRead(id)}>돌아가기</button>
                         <button className="h-10 w-14 rounded-md mx-2 bg-purple-500" onClick={handleModify}>수정</button>
                         <button className="h-10 w-14 rounded-md mx-2 bg-red-500" onClick={handleDelete}>삭제</button>
                     </div>
