@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { getReviewImg, getReviewList } from "../../api/ReviewAPI";
 import ReactStars from "react-rating-stars-component";
-import useModal from "../../hooks/useModal";
-import LayoutModal from "./modal/layoutModal";
+import useModal from "../../../commons/hooks/useModal";
+import LayoutModal from "../../../commons/modals/layoutModal";
 import ReadModal from "./modal/ReadModal";
 import ModifyModal from "./modal/ModifyModal";
 

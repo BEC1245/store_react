@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getListProduct } from "../../api/ProductAPI";
 import { Rating } from "react-simple-star-rating";
-import ListPageComponent from "../../common/ListPageComponent";
+import ListPageComponent from "../../../commons/components/ListPageComponent";
+import { useNavigate } from "react-router-dom";
 
 
 const initState = {

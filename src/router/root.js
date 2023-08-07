@@ -7,6 +7,8 @@ const Product_Index = lazy(() => import("../products/pages/product/IndexPage"))
 const Product_List = lazy(() => import("../products/pages/product/ListPage"))
 const Product_Read = lazy(() => import("../products/pages/product/ReadPage"))
 const Product_Modify = lazy(() => import("../products/pages/product/ModifyPage"))
+const User_Index = lazy(() => import("../users/pages/IndexPage"))
+const User_Login = lazy(() => import("../users/pages/loginPage"))
 
 const router = createBrowserRouter([
     {
@@ -27,6 +29,16 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: '/user/',
+        element: <Suspense fallback={Loading}><User_Index/></Suspense>,
+        children: [
+            {
+                path: 'login',
+                element: <Suspense fallback={Loading}><User_Login/></Suspense>,
+            }
+        ]
+    }
 ])
 
 export default router;

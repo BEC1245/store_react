@@ -3,7 +3,7 @@ import ReadComponent from "../../components/product/ReadComponent";
 import ReviewComponent from "../../components/review/ReviewComponent";
 import ReviewRegistComponent from "../../components/review/ReviewRegistComponent";
 import { useState } from "react";
-import useQueryObj from "../../hooks/useQueryObj";
+import useQueryObj from "../../../commons/hooks/useQueryObj";
 
 const ReadPage = () => {
 

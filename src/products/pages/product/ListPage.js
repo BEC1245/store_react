@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import ProductListComponent from "../../components/product/ListComponent";
 import ListOrderByComponent from "../../components/product/ListOrderByComponent";
-import useQueryObj from "../../hooks/useQueryObj";
+import useQueryObj from "../../../commons/hooks/useQueryObj";
 
 
 const ProductListPage = () => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ListPageComponent from "../../common/ListPageComponent";
+import ListPageComponent from "../../../commons/components/ListPageComponent";
 
 const initState = {
     "1+1": false,
