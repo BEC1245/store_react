@@ -7,8 +7,6 @@ const jwtAxios = axios.create()
 
 const beforeReq = async(config) => {
 
-    const formData = new FormData()
-
     console.log("beforeRequest.................")
 
     console.log(getCookie("login"))
@@ -35,14 +33,24 @@ const beforeRes = async(res) => {
 
     console.log("2xx Response.............")
 
-    if(res.data.error === 'Expired'){
+    console.log(res)
+
+    if(res.data.error === 'EXPIRED'){
+
+        const cookieValue = getCookie("login")
 
         console.log("Access Token has expired")
-        const newAccessToken = await refreshJWT()
+        const newAccessToken = await refreshJWT(cookieValue).catch(async err => {
+
+            alert('로그인이 완전히 만료 되였습니다')
+            const { accessToken } = await guestLogin()
+            return accessToken
+            
+        })
 
         const originalRequest = res.config
 
-        originalRequest.headers.Authorization =`Bearer ${newAccessToken}`
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
 
         return await axios(originalRequest)
 
@@ -59,9 +67,7 @@ const responseFail  = (err) => {
 }
 
 // used methods
-const refreshJWT = async () => {
-
-    const cookieValue = getCookie("login")
+const refreshJWT = async (cookieValue) => {
 
     const {accessToken, refreshToken} = cookieValue
 
@@ -71,7 +77,7 @@ const refreshJWT = async () => {
         }
     }
 
-    const res = await axios.get(`http://localhost:8080/api/member/refresh?refreshToken=${refreshToken}`, header)
+    const res = await axios.get(`http://localhost:8080/api/user/refresh?refreshToken=${refreshToken}`, header)
 
     const newAccess = res.data.accessToken
     const newRefresh = res.data.refreshToken
@@ -107,22 +113,15 @@ const guestLogin = async() => {
 
     const {data} = await axios.post('http://localhost:8080/api/user/login', formData, header)
 
-    console.log('-------------------------------------');
-    console.log('-------------------------------------');
+    setCookie("login", JSON.stringify(data), 1)
 
-    console.log(data);
-
-    console.log('-------------------------------------');
-    console.log('-------------------------------------');
-
-    setCookie("login", data, 1)
-
+    return data;
 }
 
 // 요청 하기전
 jwtAxios.interceptors.request.use(beforeReq, requestFail)
 
 // 응답 받기전
-// jwtAxios.interceptors.response.use(beforeRes, responseFail)
+jwtAxios.interceptors.response.use(beforeRes, responseFail)
 
 export default jwtAxios

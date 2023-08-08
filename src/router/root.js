@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import LoadingPage from "../products/pages/LoadingPage";
+import KakaoResultPage from "../users/pages/KakaoResultPage";
 
 const Loading = <LoadingPage></LoadingPage>
 const Product_Index = lazy(() => import("../products/pages/product/IndexPage"))
@@ -36,8 +37,24 @@ const router = createBrowserRouter([
             {
                 path: 'login',
                 element: <Suspense fallback={Loading}><User_Login/></Suspense>,
+            },
+            {
+                path: 'signin',
+                element: <Suspense fallback={Loading}></Suspense>
+            },
+            {
+                path: 'modify/user',
+                element: <Suspense fallback={Loading}></Suspense>
+            },
+            {
+                path: 'modify/social',
+                element: <Suspense fallback={Loading}></Suspense>
             }
         ]
+    },
+    {
+        path: '/kakaologin',
+        element: <KakaoResultPage></KakaoResultPage>
     }
 ])
 

@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import ModifyComponent from "../../components/product/ModifyComponent";
 import useQueryObj from "../../../commons/hooks/useQueryObj";
+import useCheckState from "../../../commons/hooks/useCheckState";
+import { useEffect } from "react";
 
 
 const ModifyPage = () => {
@@ -8,6 +10,8 @@ const ModifyPage = () => {
     const { moveRead, moveList } = useQueryObj();
 
     const { id } = useParams()
+    
+    useCheckState("ADMIN", moveList)
 
     console.log(id, 'modifyPage');
 

@@ -27,7 +27,7 @@ const LoginComponent = () => {
         if(selector.errorMsg && selector.errorMsg === 'LOGIN_FAILURE') {
             console.log("login fail................")
             
-        }else if(selector.email){
+        }else if(selector.roleNames.includes('USER') || selector.roleNames.includes('ADMIN')){
             naviage("/product/list")
         }
 

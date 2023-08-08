@@ -13,7 +13,7 @@ export const getListProduct = async(queryObj) => {
 
 export const getOneProduct = async(id) => {
 
-    const {data} = await axios.get(`http://localhost:8080/product/${id}`)
+    const {data} = await jwtAxios.get(`http://localhost:8080/product/${id}`)
 
     return data
 }
@@ -26,7 +26,7 @@ export const modifyProduct = async(form) => {
         } 
     }
 
-    const {data} = await axios.put(`http://localhost:8080/product/`, form, header)
+    const {data} = await jwtAxios.put(`http://localhost:8080/product/`, form, header)
 
     return data;
 
@@ -34,7 +34,7 @@ export const modifyProduct = async(form) => {
 
 export const deleteProduct = async(id) => {
 
-    const {data} = await axios.delete(`http://localhost:8080/product/${id}`)
+    const {data} = await jwtAxios.delete(`http://localhost:8080/product/${id}`)
 
     return data
     

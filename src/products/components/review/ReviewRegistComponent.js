@@ -3,13 +3,20 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { postReview } from "../../api/ReviewAPI";
 import ReactStars from "react-rating-stars-component";
+import { useSelector } from "react-redux";
 
 const initState = {
     score: 0,
-    content: ''
+    content: '',
+    product_id:0,
+    email:''
 }
 
 const ReviewRegistComponent = ({id, hasChanged}) => {
+
+    console.log(id, 'id in reviewRegistComponent');
+
+    const selector = useSelector(select => select.login)
 
     const [insert, setInsert] = useState(initState)
 
@@ -17,7 +24,8 @@ const ReviewRegistComponent = ({id, hasChanged}) => {
 
     // 여기에 로그인 만들면 slice로 저장한 email 넣어야함
     useEffect(() => {
-        insert.product_id = id;
+        insert.email = selector.email
+        insert.product_id = id
         setInsert({...insert})
     }, [id])
 
@@ -49,8 +57,8 @@ const ReviewRegistComponent = ({id, hasChanged}) => {
 
         formData.append("score", insert.score)
         formData.append("content", insert.content)
-        formData.append("product_id", id)
-        formData.append("email", 'user009@notgmail.com') // 여기가 쿠키의 유저 정보
+        formData.append("product_id", insert.product_id)
+        formData.append("email", insert.email) // 여기가 쿠키의 유저 정보
 
         postReview(formData).then(data => {
             console.log(data);

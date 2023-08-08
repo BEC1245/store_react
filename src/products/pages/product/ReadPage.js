@@ -4,8 +4,13 @@ import ReviewComponent from "../../components/review/ReviewComponent";
 import ReviewRegistComponent from "../../components/review/ReviewRegistComponent";
 import { useState } from "react";
 import useQueryObj from "../../../commons/hooks/useQueryObj";
+import useCheckState from "../../../commons/hooks/useCheckState";
 
 const ReadPage = () => {
+
+    const { roleNames } = useCheckState();
+
+    console.log(roleNames, 'rolename');
 
     const { moveModify } = useQueryObj();
 
@@ -22,7 +27,7 @@ const ReadPage = () => {
         <div>
             <div>
                 <ReadComponent id={id} hasChanged={hasChanged}></ReadComponent>
-                <ReviewRegistComponent id={id} hasChanged={hasChanged}></ReviewRegistComponent>
+                { roleNames.includes('ADMIN') || roleNames.includes('USER') ? <ReviewRegistComponent id={id} hasChanged={hasChanged}></ReviewRegistComponent> : <></> }
                 <ReviewComponent id={id} hasChanged={hasChanged}></ReviewComponent>
             </div>
             <div className="flex justify-end">

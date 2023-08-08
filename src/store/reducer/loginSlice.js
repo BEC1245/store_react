@@ -39,6 +39,13 @@ const loginSlice = createSlice({
         initAll: (state, action) => {
             removeCookie("login")
             return initState()
+        },
+        machCookieState: () => {
+            return userCookie()
+        },
+        setEmail: (state, action) => {
+            state.email = action.payload
+            return state;
         }
     },
     extraReducers: (builder) => {
@@ -66,6 +73,6 @@ const loginSlice = createSlice({
     }
 })
 
-export const { initAll } = loginSlice.actions;
+export const { initAll, machCookieState, setEmail } = loginSlice.actions;
 
 export default loginSlice.reducer;

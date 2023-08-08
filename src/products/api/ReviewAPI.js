@@ -1,15 +1,15 @@
-import axios from "axios"
+import jwtAxios from "../../users/jwt/jwtUtil";
 
 export const getReviewList = async(cursor, product_id) => {
 
-    const {data} = await axios.get(`http://localhost:8080/review/list?cursor=${cursor}&id=${product_id}`)
+    const {data} = await jwtAxios.get(`http://localhost:8080/review/list?cursor=${cursor}&id=${product_id}`)
 
     return data;
 }
 
 export const getReview = async(review_id) => {
 
-    const {data} = await axios.get(`http://localhost:8080/review/img/${review_id}`)
+    const {data} = await jwtAxios.get(`http://localhost:8080/review/${review_id}`)
 
     return data;
 }
@@ -22,14 +22,14 @@ export const postReview = async(formData) => {
         } 
     }
 
-    const {data} = await axios.post('http://localhost:8080/review/', formData, header)
+    const {data} = await jwtAxios.post('http://localhost:8080/review/', formData, header)
 
     return data
 }
 
 export const deleteReview = async(review_id) => {
     
-    await axios.delete(`http://localhost:8080/review/${review_id}`)
+    await jwtAxios.delete(`http://localhost:8080/review/${review_id}`)
 
 }
 
@@ -41,7 +41,7 @@ export const putReview = async(formData) => {
         } 
     }
     
-    await axios.put('http://localhost:8080/review/', formData, header)
+    await jwtAxios.put('http://localhost:8080/review/', formData, header)
 }
 
 

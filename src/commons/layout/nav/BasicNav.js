@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useQueryObj from "../../hooks/useQueryObj";
+import axios from "axios";
 
 
 const BasicNav = () => {

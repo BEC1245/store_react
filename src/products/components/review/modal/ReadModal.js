@@ -2,13 +2,15 @@ import { useEffect, useRef } from "react";
 import { deleteReview, getReview } from "../../../api/ReviewAPI";
 import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
+import { useSelector } from "react-redux";
 
 const initState = {
     content:'',
     id:0,
     imgs:[],
     score:0,
-    nickName:''
+    nickName:'',
+    email:''
 }
 
 const ReadModal = ({id, modalClose, hasModalChange, hasChange}) => {
@@ -18,12 +20,16 @@ const ReadModal = ({id, modalClose, hasModalChange, hasChange}) => {
 
     const [cursor, setCursor] = useState(0);
 
+    const selector = useSelector(select => select.login)
+
+    const isModifyable = selector.roleNames.includes('ADMIN') || selector.email === review.email
+
     useEffect(() => {
 
         if(id === null){ return }
 
         getReview(id).then(data => {
-            console.log(data, 'imgModal List')
+            console.log(data, 'Modal List')
             setReview({...data})
         })
 
@@ -63,10 +69,10 @@ const ReadModal = ({id, modalClose, hasModalChange, hasChange}) => {
                     </div>
                 </div>
             </div>
-            <div>
+            { isModifyable ? <div>
                 <button className="w-20 h-10 rounded-xl bg-slate-700 ml-1" onClick={hasModalChange}>수정</button>
                 <button className="w-20 h-10 rounded-xl bg-slate-700 ml-3" onClick={handleDelete}>삭제</button>
-            </div>
+            </div> : <></>}
         </div>
      );
 }
