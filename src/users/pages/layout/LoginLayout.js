@@ -3,8 +3,9 @@
 const LoginLayout = ({children}) => {
     return ( 
         <div>
-            <div className="text-3xl"> LoginLayout </div>
+            <div className="w-screen h-screen bg-slate-300">
             {children}
+            </div>
         </div>
      );
 }

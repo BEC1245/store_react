@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { postLoginThunk, setEmail } from "../../store/reducer/loginSlice";
+import { postLoginThunk, setSocial } from "../../store/reducer/loginSlice";
 import { useEffect } from "react";
 
 
@@ -20,9 +20,16 @@ const KakaoResultPage = () => {
 
         if(data.isSocial && data.roleNames.includes('GUEST')){
 
-            dispatch(setEmail(data.email))
+            const socialData = {
+                id: data.id,
+                email: data.email,
+                isSocial: data.isSocial,
+                roleNames: data.roleNames
+            }
 
-            navi('/user/modify/social')
+            dispatch(setSocial(socialData))
+
+            navi('/user/modify')
 
         } else {
     
@@ -33,17 +40,16 @@ const KakaoResultPage = () => {
     
             dispatch(postLoginThunk(formData))
 
-            navi('/product/list')
+            // navi('/product/list')
 
         }
 
     }, [data])
 
     return ( 
-        <div>
-            
-        </div>
-     );
+        <>
+        </>
+    );
 }
  
 export default KakaoResultPage;

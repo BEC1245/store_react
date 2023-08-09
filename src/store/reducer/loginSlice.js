@@ -9,11 +9,13 @@ export const postLoginThunk =
     })
 
 const initState = {
+    id: 0,
+    email: '',
     nickName: '',
     profile: '',
-    isAdmin: false,
+    roleNames: [],
+    isSocial: false,
     accessToken: '',
-    email: '',
     refreshToken: '',
     errorMsg: '',
     loading: false,
@@ -43,8 +45,14 @@ const loginSlice = createSlice({
         machCookieState: () => {
             return userCookie()
         },
-        setEmail: (state, action) => {
-            state.email = action.payload
+        setSocial: (state, action) => {
+            state.id = action.payload.id
+            state.email = action.payload.email
+            state.isSocial = action.payload.isSocial
+            state.roleNames = action.payload.roleNames
+
+            setCookie("login", state, 1)
+
             return state;
         }
     },
@@ -73,6 +81,6 @@ const loginSlice = createSlice({
     }
 })
 
-export const { initAll, machCookieState, setEmail } = loginSlice.actions;
+export const { initAll, machCookieState, setSocial } = loginSlice.actions;
 
 export default loginSlice.reducer;

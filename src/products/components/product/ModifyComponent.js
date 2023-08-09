@@ -67,6 +67,7 @@ const ModifyComponent = ({id, moveRead, moveList}) => {
                 formData.append("file", files[0]);
             } else {
                 alert('이미지 형식은 png, jpg 만 등록 가능합니다')
+                return
             }
 
         }
