@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { postLoginThunk, setSocial } from "../../store/reducer/loginSlice";
+import { getSocialThunk, initAll, postLoginThunk, setSocial } from "../../store/reducer/loginSlice";
 import { useEffect } from "react";
 
 
@@ -27,28 +27,25 @@ const KakaoResultPage = () => {
                 roleNames: data.roleNames
             }
 
+            dispatch(initAll())
             dispatch(setSocial(socialData))
-
             navi('/user/modify')
 
         } else {
-    
-            const formData = new FormData()
-    
-            formData.append("username", data.email)
-            formData.append("password", data.password)
-    
-            dispatch(postLoginThunk(formData))
 
-            // navi('/product/list')
+            // 여기에 slice에 저장해 놓을 소셜 회원 정보를 넣어놔야함
+            dispatch(initAll())
+            dispatch(setSocial(data))
+            navi('/product/list')
 
         }
 
     }, [data])
 
     return ( 
-        <>
-        </>
+        <div>
+            이 창이 보이면 카카오 로그인 중 문제가 있었다는 겁니다....
+        </div>
     );
 }
  

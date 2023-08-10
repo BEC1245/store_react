@@ -27,3 +27,25 @@ export const modifyInfo = async(formData) => {
     return data;
     
 }
+
+export const getOneUser = async(email) => {
+
+    const {data} = await axios.get(`http://localhost:8080/api/user/email?email=${email}`)
+
+    return data
+
+}
+
+export const registUser = async(formData) => {
+
+    const header = {
+        headers: {
+            "Content-Type" : "multipart/form-data"
+        } 
+    }
+
+    const {data} = await axios.post(`http://localhost:8080/api/user/signin`, formData, header)
+
+    return data;
+    
+}

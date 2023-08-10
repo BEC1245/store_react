@@ -10,7 +10,7 @@ const initState = {
     imgs:[],
     score:0,
     nickName:'',
-    id:0
+    user_id: 0
 }
 
 const ReadModal = ({id, modalClose, hasModalChange, hasChange}) => {
@@ -22,7 +22,9 @@ const ReadModal = ({id, modalClose, hasModalChange, hasChange}) => {
 
     const selector = useSelector(select => select.login)
 
-    const isModifyable = selector.roleNames.includes('ADMIN') || selector.id === review.id
+    const isModifyable = selector.roleNames.includes('ADMIN') || selector.id === review.user_id
+
+    console.log(review.imgs);
 
     useEffect(() => {
 

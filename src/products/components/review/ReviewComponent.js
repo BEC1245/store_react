@@ -85,7 +85,7 @@ const ReviewComponent = ({id, hasChanged}) => {
                 >
                     <div className="mb-3 bg-red-400"> 
                         <header className="flex p-2">
-                            <img src={`http://localhost/user_profile/${ele.profile}`}></img>
+                            <img src={`http://localhost/user_profile/s_${ele.profile}`}></img>
                             <div className="ml-3 font-bold"> { ele.nickName } </div>
                             <div className="ml-3"> 
                                 <ReactStars value={ele.score} edit={false}/>

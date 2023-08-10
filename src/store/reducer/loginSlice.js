@@ -1,11 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getCookie, removeCookie, setCookie } from "../../users/jwt/cookieUtils";
-import { login } from "../../users/api/loginAPI";
+import { getOneUser, login } from "../../users/api/loginAPI";
 
 // 예가 redux tool kit 으로 비동기 통신을 하는 놈
 export const postLoginThunk = 
     createAsyncThunk('postLoginThunk', (formData) => {
         return login(formData)
+    })
+
+export const getSocialThunk = 
+    createAsyncThunk('getSocialThunk', (email) => {
+        return getOneUser(email);
     })
 
 const initState = {
@@ -31,7 +36,18 @@ const userCookie = () => {
         return initState
     }
 
+    console.log(parsingData(data), 'cookie parsed data in login Slice')
+
     return data
+}
+
+const parsingData = (data) => {
+
+    const nickName = encodeURIComponent(data.nickName)
+    const profile = encodeURIComponent(data.profile)
+
+    return {...data, nickName:nickName, profile:profile}
+
 }
 
 const loginSlice = createSlice({
@@ -40,23 +56,21 @@ const loginSlice = createSlice({
     reducers: {
         initAll: (state, action) => {
             removeCookie("login")
-            return initState()
+            return initState
         },
         machCookieState: () => {
             return userCookie()
         },
         setSocial: (state, action) => {
-            state.id = action.payload.id
-            state.email = action.payload.email
-            state.isSocial = action.payload.isSocial
-            state.roleNames = action.payload.roleNames
 
-            setCookie("login", state, 1)
+            setCookie("login", JSON.stringify(action.payload), 1)
 
-            return state;
+            return { ...action.payload };
         }
     },
     extraReducers: (builder) => {
+        
+        // 일반 로그인 로직
         builder.addCase(postLoginThunk.fulfilled, (state, action) => {
             console.log(state, 'curren state in loginSlice.js');
             console.log(action, 'curren action in loginSlice.js');
@@ -65,9 +79,8 @@ const loginSlice = createSlice({
                 state.errorMsg = action.payload.error
                 return
             }
-
-            //state = { loading:false, ...action.payload}
-            setCookie("login", JSON.stringify(action.payload), 1)
+            
+            setCookie("login", JSON.stringify(parsingData(action.payload)), 1)
             return { loading:false, ...action.payload }
         })
         builder.addCase(postLoginThunk.pending, (state, action) => {
@@ -77,6 +90,17 @@ const loginSlice = createSlice({
             console.log(action, 'rejected action in loginSlice.js');
             state.errorMsg = 'EXCEPTION'
             state.loading = false
+        })
+
+        // 소셜 로그인 로직
+        builder.addCase(getSocialThunk.fulfilled, (state, action) => {
+            
+            setCookie("login", JSON.stringify(parsingData(action.payload)), 1)
+            return { ...action.payload }
+        })
+        builder.addCase(getSocialThunk.rejected, (state, action) => {
+            state.errorMsg = 'EXCEPTION'
+            return { ...state }
         })
     }
 })

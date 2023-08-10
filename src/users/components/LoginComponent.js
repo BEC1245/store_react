@@ -27,7 +27,7 @@ const LoginComponent = () => {
         if(selector.errorMsg && selector.errorMsg === 'LOGIN_FAILURE') {
             console.log("login fail................")
             
-        }else if(selector.roleNames.includes('USER') || selector.roleNames.includes('ADMIN')){
+        } else if(selector.roleNames.includes('USER') || selector.roleNames.includes('ADMIN')){
             naviage("/product/list")
         }
 
@@ -46,7 +46,6 @@ const LoginComponent = () => {
         formData.append("password", login.password)
 
         dispatch(postLoginThunk(formData))
-
     }
 
     return ( 
