@@ -10,6 +10,7 @@ import { postLoginThunk } from "../../store/reducer/loginSlice";
 import LayoutModal from "../../commons/modals/layoutModal";
 import useModal from "../../commons/hooks/useModal";
 import DeleteModal from "./DeleteModal";
+import useQueryObj from "../../commons/hooks/useQueryObj";
 
 const initState = {
     accessToken : '',
@@ -35,7 +36,7 @@ const ModifyComponent = () => {
 
     const {isOpen, modalClose, modalOpen} = useModal();
 
-    const navi = useNavigate()
+    const { moveProductList } = useQueryObj()
 
     const ref = useRef()
 
@@ -145,7 +146,7 @@ const ModifyComponent = () => {
             loginForm.append("username", modify.email)
             loginForm.append("password", modify.pw)
             
-            dispatch(postLoginThunk(loginForm)).unwrap().then(ele => { navi('/product/list') })
+            dispatch(postLoginThunk(loginForm)).unwrap().then(ele => { moveProductList() })
         })
     
     }
@@ -154,7 +155,7 @@ const ModifyComponent = () => {
         <div>
             { isOpen && 
             <LayoutModal modalClose={modalClose}>
-                <DeleteModal></DeleteModal>
+                <DeleteModal selector={selector} dispatch={dispatch} moveProductList={moveProductList}></DeleteModal>
             </LayoutModal> }
             <div className="flex justify-center items-center h-screen overflow-scroll">
                 <div className="h-auto w-2/3">

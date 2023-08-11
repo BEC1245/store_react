@@ -62,7 +62,11 @@ const useQueryObj = () => {
         navigate(`../modify/${id}?${searchParams}`)
     }
 
-    return {queryObj, setSearch, moveList, moveRead, moveModify}
+    const moveProductList = () => {
+        navigate('/product/list')
+    }
+
+    return {queryObj, setSearch, moveList, moveRead, moveModify, moveProductList}
     
 }
 

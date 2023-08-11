@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneUser, registInfo, registUser } from "../api/loginAPI";
-import { Link, useNavigate } from "react-router-dom";
 import { postLoginThunk } from "../../store/reducer/loginSlice";
+import useQueryObj from "../../commons/hooks/useQueryObj";
 
 
 const initState = {
@@ -21,7 +21,7 @@ const SinginComponent = () => {
 
     const [regist, setRegist] = useState(initState)
 
-    const navi = useNavigate()
+    const { moveProductList } = useQueryObj()
 
     const ref = useRef()
 
@@ -120,7 +120,7 @@ const SinginComponent = () => {
             loginForm.append("password", regist.pw)
 
             dispatch(postLoginThunk(loginForm)).unwrap().then(data => {
-                navi('/product/list')
+                moveProductList()
             })
         })
 

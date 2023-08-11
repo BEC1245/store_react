@@ -18,6 +18,14 @@ const KakaoResultPage = () => {
 
         console.log(data);
 
+
+        if(data.error === 'RESIGNED_USER'){
+
+            dispatch(initAll())
+            navi(`/user/restore/${data.id}`)
+            return
+        }
+
         if(data.isSocial && data.roleNames.includes('GUEST')){
 
             const socialData = {

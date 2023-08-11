@@ -12,7 +12,7 @@ const ListPageComponent = ({movePage, next, prev, pageNums, start, end}) => {
                 { prev ? 
                 <div
                 key={start - 1}
-                className="" 
+                className="bg-orange-500 text-center p-2 h-11 mt-3 m-2 border-2 font-bold"
                 onClick={() => hendleOnClick(start - 1)}
                 >
                     prev

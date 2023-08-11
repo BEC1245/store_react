@@ -49,3 +49,19 @@ export const registUser = async(formData) => {
     return data;
     
 }
+
+export const deleteUser = async(id) => {
+
+    const {data} = await axios.delete(`http://localhost:8080/api/user/resign/${id}`)
+
+    return data
+
+}
+
+export const restoreUser = async(id) => {
+
+    const {data} = await axios.put(`http://localhost:8080/api/user/restore/${id}`)
+
+    return data
+
+}

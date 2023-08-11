@@ -12,6 +12,7 @@ const User_Index = lazy(() => import("../users/pages/IndexPage"))
 const User_Login = lazy(() => import("../users/pages/loginPage"))
 const User_Modify = lazy(() => import("../users/pages/ModifyPage"))
 const User_Singin = lazy(() => import("../users/pages/SigninPage"))
+const User_SocialRestore = lazy(() => import("../users/pages/SocialRestorePage"))
 
 const router = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
             {
                 path: 'modify',
                 element: <Suspense fallback={Loading}><User_Modify/></Suspense>
+            },
+            {
+                path: 'restore/:id',
+                element: <Suspense fallback={Loading}><User_SocialRestore/></Suspense>
             }
         ]
     },

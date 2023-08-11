@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postLoginThunk } from "../../store/reducer/loginSlice";
 import useQueryObj from "../../commons/hooks/useQueryObj";
-import { useNavigate } from "react-router-dom";
-
+import { useRef } from "react";
 
 const initState = {
     email: '',
@@ -14,21 +13,22 @@ const LoginComponent = () => {
 
     const [login, setLogin] = useState(initState)
 
-    const { moveList } = useQueryObj()
+    const { moveProductList } = useQueryObj()
 
     const selector = useSelector(select => select.login)
 
     const dispatch = useDispatch()
 
-    const naviage = useNavigate()
+    const ref = useRef()
 
     useEffect(() => {
 
-        if(selector.errorMsg && selector.errorMsg === 'LOGIN_FAILURE') {
+        if(selector.errorMsg) {
+            console.log(selector.errorMsg, 'check errorMsg in loginComponent');
             console.log("login fail................")
             
         } else if(selector.roleNames.includes('USER') || selector.roleNames.includes('ADMIN')){
-            naviage("/product/list")
+            moveProductList()
         }
 
     }, [selector])
@@ -58,6 +58,9 @@ const LoginComponent = () => {
                 password: <input type="text" name="password" onChange={handleOnChange} className="border-2"></input>
             </div>
             <button onClick={handleLoginClick} className="m-3 h-8 w-16 rounded-lg bg-red-600 text-white"> Login </button>
+            <a href="http://localhost:8080/oauth2/authorization/kakao" className="p-4">
+                <div className="w-full h-16 bg-yellow-400"> 카카오 로그인 </div>
+            </a>
         </div>
      );
 }
