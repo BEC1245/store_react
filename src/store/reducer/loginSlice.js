@@ -102,6 +102,7 @@ const loginSlice = createSlice({
             state.errorMsg = 'EXCEPTION'
             return { ...state }
         })
+        
     }
 })
 

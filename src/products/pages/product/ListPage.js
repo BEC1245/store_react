@@ -1,10 +1,6 @@
-import { useSearchParams } from "react-router-dom";
 import ProductListComponent from "../../components/product/ListComponent";
 import ListOrderByComponent from "../../components/product/ListOrderByComponent";
 import useQueryObj from "../../../commons/hooks/useQueryObj";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import { useEffect } from "react";
 import useCheckState from "../../../commons/hooks/useCheckState";
 
 const ProductListPage = () => {

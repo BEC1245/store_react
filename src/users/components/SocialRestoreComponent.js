@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { restoreUser } from "../api/loginAPI";
+import { backServer } from "../../commons/Loc";
 
 
 const SocialRestoreComponent = ({moveProductList, id}) => {
@@ -16,7 +17,7 @@ const SocialRestoreComponent = ({moveProductList, id}) => {
 
     return ( 
         <div>
-            <a ref={ref} href="http://localhost:8080/oauth2/authorization/kakao" hidden></a>
+            <a ref={ref} href={`${backServer}/oauth2/authorization/kakao`} hidden></a>
             <div className="flex justify-center items-center h-screen">
                 <div className="w-1/4 bg-white">
 

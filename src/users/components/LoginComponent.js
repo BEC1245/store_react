@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postLoginThunk } from "../../store/reducer/loginSlice";
 import useQueryObj from "../../commons/hooks/useQueryObj";
 import { useRef } from "react";
+import { backServer } from "../../commons/Loc";
 
 const initState = {
     email: '',
@@ -58,8 +59,8 @@ const LoginComponent = () => {
                 password: <input type="text" name="password" onChange={handleOnChange} className="border-2"></input>
             </div>
             <button onClick={handleLoginClick} className="m-3 h-8 w-16 rounded-lg bg-red-600 text-white"> Login </button>
-            <a href="http://localhost:8080/oauth2/authorization/kakao" className="p-4">
-                <div className="w-full h-16 bg-yellow-400"> 카카오 로그인 </div>
+            <a href={`${backServer}/oauth2/authorization/kakao`} className="p-4">
+                <div className="w-32 h-8 ml-3 bg-yellow-400 rounded-xl p-1"> 카카오 로그인 </div>
             </a>
         </div>
      );

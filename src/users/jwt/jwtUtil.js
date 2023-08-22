@@ -2,6 +2,7 @@ import axios from "axios";
 import { getCookie, setCookie } from "./cookieUtils";
 import { useDispatch } from "react-redux";
 import { postLoginThunk } from "../../store/reducer/loginSlice";
+import { backServer } from "../../commons/Loc";
 
 const jwtAxios = axios.create()
 
@@ -77,7 +78,7 @@ const refreshJWT = async (cookieValue) => {
         }
     }
 
-    const res = await axios.get(`http://localhost:8080/api/user/refresh?refreshToken=${refreshToken}`, header)
+    const res = await axios.get(`${backServer}/api/user/refresh?refreshToken=${refreshToken}`, header)
 
     const newAccess = res.data.accessToken
     const newRefresh = res.data.refreshToken
@@ -111,7 +112,7 @@ const guestLogin = async() => {
     formData.append("username", "guest")
     formData.append("password", "1111")
 
-    const {data} = await axios.post('http://localhost:8080/api/user/login', formData, header)
+    const {data} = await axios.post(`${backServer}/api/user/login`, formData, header)
 
     setCookie("login", JSON.stringify(data), 1)
 

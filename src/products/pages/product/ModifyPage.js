@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import ModifyComponent from "../../components/product/ModifyComponent";
 import useQueryObj from "../../../commons/hooks/useQueryObj";
 import useCheckState from "../../../commons/hooks/useCheckState";
-import { useEffect } from "react";
 
 
 const ModifyPage = () => {
